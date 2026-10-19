@@ -3,13 +3,11 @@
  * SERVICE WORKER: sw.js (Soporte Offline y PWA para Android, iOS y Desktop)
  * ============================================================================
  * CONCEPTO SENIOR / BUENA PRÁCTICA (ADSO):
- * Arquitectura Offline-First:
- * Permite que la aplicación funcione en el celular sin conexión a internet
- * (por ejemplo, en el bus, metro o zonas sin Wi-Fi).
- * Intercepta peticiones de red y sirve archivos desde la memoria caché local.
+ * Estrategia Network-First para HTML (permite ver cambios inmediatamente al recargar)
+ * y Cache-First para recursos estáticos (imágenes, CSS, JS).
  */
 
-const CACHE_NAME = 'adso-focus-v1.2';
+const CACHE_NAME = 'adso-focus-v3.0';
 
 const ASSETS_TO_CACHE = [
     './',
@@ -28,16 +26,17 @@ const ASSETS_TO_CACHE = [
     './icons/icon-512.png'
 ];
 
-// 1. Evento Install: Descarga y guarda en caché los recursos esenciales
+// 1. Evento Install: Descarga recursos y fuerza la activación inmediata
 self.addEventListener('install', (event) => {
+    self.skipWaiting(); // Reemplaza de inmediato el Service Worker anterior
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(ASSETS_TO_CACHE);
-        }).then(() => self.skipWaiting())
+        })
     );
 });
 
-// 2. Evento Activate: Limpia versiones antiguas de caché para liberar memoria
+// 2. Evento Activate: Elimina cachés antiguas automáticamente
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -48,39 +47,49 @@ self.addEventListener('activate', (event) => {
                     }
                 })
             );
-        }).then(() => self.clients.claim())
+        }).then(() => self.clients.claim()) // Toma control de todas las pestañas de inmediato
     );
 });
 
-// 3. Evento Fetch: Estrategia Cache First con Network Fallback
+// 3. Evento Fetch: Network-First para index.html para que los cambios se vean siempre al recargar
 self.addEventListener('fetch', (event) => {
-    // Solo manejamos peticiones GET (no mutaciones ni llamadas externas complejas)
     if (event.request.method !== 'GET') return;
 
-    event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
-            if (cachedResponse) {
-                // Si está en caché, lo servimos de inmediato
-                return cachedResponse;
-            }
+    const isHTML = event.request.mode === 'navigate' || 
+                   (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'));
 
-            // Si no está en caché, intentamos descargarlo por red
-            return fetch(event.request).then((networkResponse) => {
-                // Si la respuesta es válida, la guardamos dinámicamente en caché
-                if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-                    const responseToCache = networkResponse.clone();
+    if (isHTML) {
+        // Para páginas HTML: Intentar red primero; si no hay red, usar caché
+        event.respondWith(
+            fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseClone = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseToCache);
+                        cache.put(event.request, responseClone);
                     });
                 }
                 return networkResponse;
             }).catch(() => {
-                // Si no hay red y la petición busca un recurso HTML, podemos mostrar la página principal
-                if (event.request.headers.get('accept').includes('text/html')) {
-                    return caches.match('./index.html');
+                return caches.match('./index.html');
+            })
+        );
+        return;
+    }
+
+    // Para otros recursos (CSS, JS, iconos): Stale-While-Revalidate
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            const fetchPromise = fetch(event.request).then((networkResponse) => {
+                if (networkResponse && networkResponse.status === 200) {
+                    const responseClone = networkResponse.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
                 }
-            });
+                return networkResponse;
+            }).catch(() => cachedResponse);
+
+            return cachedResponse || fetchPromise;
         })
     );
 });
-

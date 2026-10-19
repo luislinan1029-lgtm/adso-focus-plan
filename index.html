@@ -23,10 +23,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Iconos Phosphor Icons (Hojas de estilo completas) -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/bold/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -36,7 +32,7 @@
         <div class="header-container">
             <div class="brand">
                 <div class="brand-icon">
-                    <i class="ph-bold ph-calendar-check"></i>
+                    <span>📅</span>
                 </div>
                 <div>
                     <h1>ADSO Focus & Plan</h1>
@@ -45,14 +41,15 @@
             </div>
             <div class="header-actions">
                 <button id="btn-toggle-notif" class="btn-notif" title="Activar notificaciones">
-                    <i class="ph-bold ph-bell" id="notif-icon"></i>
+                    <span id="notif-icon">🔔</span>
                     <span id="notif-text">Notificaciones</span>
                 </button>
                 <button id="btn-install-pwa" class="btn-install" title="Instalar en tu dispositivo">
-                    <i class="ph-bold ph-download-simple"></i> Instalar App
+                    <span>📲</span>
+                    <span id="install-text">Instalar App</span>
                 </button>
                 <div class="user-badge">
-                    <i class="ph-bold ph-student"></i>
+                    <span>🎓</span>
                     <span>ADSO SENA</span>
                 </div>
             </div>
@@ -63,21 +60,21 @@
 
         <!-- Banner informativo opcional para iPhone/iOS -->
         <div id="ios-pwa-banner" class="ios-install-banner hidden">
-            <span>📲 <strong>¿Usas iPhone?</strong> Toca el botón <em>Compartir</em> <i class="ph-bold ph-export"></i> y selecciona <em>"Agregar a pantalla de inicio"</em> para usarla como App nativa.</span>
+            <span>📲 <strong>¿Usas iPhone?</strong> Toca el botón <em>Compartir</em> 📤 y selecciona <em>"Agregar a pantalla de inicio"</em> para usarla como App nativa.</span>
             <button id="btn-close-ios-banner" title="Cerrar aviso">&times;</button>
         </div>
 
-        <!-- Mascota Virtual Interactiva: Byte el Dev -->
+        <!-- Mascota Virtual Interactiva: Oso Dev -->
         <section class="mascot-widget" id="mascot-container">
             <div class="mascot-avatar-wrapper" id="mascot-avatar">
-                <!-- SVG de la mascota inyectado por mascot.js -->
+                <!-- SVG del Oso Dev inyectado por mascot.js -->
             </div>
             <div class="mascot-dialog-box">
                 <div class="mascot-header-info">
-                    <span class="mascot-name"><i class="ph-bold ph-sparkle"></i> Oso Dev 🐻</span>
+                    <span class="mascot-name">✨ Oso Dev 🐻</span>
                     <span class="mascot-tag">Compañero ADSO</span>
                 </div>
-                <p class="mascot-bubble" id="mascot-speech">¡Hola Luis! ¿Listo para avanzar en tu proyecto de ADSO hoy? 💻</p>
+                <p class="mascot-bubble" id="mascot-speech">¡Hola Luis! Soy Oso Dev, ¿listo para avanzar en tu proyecto de ADSO hoy? 💻</p>
             </div>
         </section>
 
@@ -138,7 +135,7 @@
             <!-- MODULO 1: Cronómetro Pomodoro -->
             <section class="card pomodoro-card">
                 <div class="card-header">
-                    <h2><i class="ph-bold ph-hourglass-high"></i> Cronómetro de Estudio</h2>
+                    <h2><span>⏱️</span> Cronómetro de Estudio</h2>
                     <span id="timer-mode-badge" class="badge badge-focus">Modo Estudio (25 min)</span>
                 </div>
 
@@ -155,26 +152,26 @@
 
                 <div class="timer-controls">
                     <button id="btn-toggle" class="btn btn-primary btn-large">
-                        <i class="ph-bold ph-play" id="btn-toggle-icon"></i>
+                        <span id="btn-toggle-icon">▶</span>
                         <span id="btn-toggle-text">Iniciar Sesión</span>
                     </button>
                     <button id="btn-reset" class="btn btn-secondary" title="Reiniciar tiempo">
-                        <i class="ph-bold ph-arrow-counter-clockwise"></i> Reiniciar
+                        <span>🔄</span> Reiniciar
                     </button>
                     <button id="btn-skip" class="btn btn-secondary" title="Cambiar a descanso o estudio">
-                        <i class="ph-bold ph-skip-forward"></i> Saltar Fase
+                        <span>⏭</span> Saltar Fase
                     </button>
                 </div>
 
                 <div class="timer-footer">
-                    <p><i class="ph-bold ph-info"></i> <strong>Regla 25/5:</strong> Completa los 25 minutos para sumar a tu racha diaria y sesiones de hoy.</p>
+                    <p>💡 <strong>Regla 25/5:</strong> Completa los 25 minutos para sumar a tu racha diaria y sesiones de hoy.</p>
                 </div>
             </section>
 
             <!-- MODULO 2: Registro de Actividades (Formulario) -->
             <section class="card form-card">
                 <div class="card-header">
-                    <h2><i class="ph-bold ph-plus-circle"></i> Nueva Actividad / Entregable</h2>
+                    <h2><span>📝</span> Nueva Actividad / Entregable</h2>
                     <span class="helper-text">Llena los datos para tu equipo</span>
                 </div>
 
@@ -212,7 +209,7 @@
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success btn-block">
-                            <i class="ph-bold ph-plus"></i> Registrar Actividad
+                            <span>➕</span> Registrar Actividad
                         </button>
                     </div>
                 </form>
@@ -223,13 +220,13 @@
         <section class="card table-card">
             <div class="table-header-bar">
                 <div>
-                    <h2><i class="ph-bold ph-table"></i> Matriz de Actividades y Entregables</h2>
+                    <h2><span>📊</span> Matriz de Actividades y Entregables</h2>
                     <p class="subtitle">Seguimiento de compromisos del equipo</p>
                 </div>
                 
                 <div class="table-actions">
                     <div class="filter-group">
-                        <label for="filter-status"><i class="ph-bold ph-funnel"></i> Filtrar:</label>
+                        <label for="filter-status">🔍 Filtrar:</label>
                         <select id="filter-status" class="select-sm">
                             <option value="ALL">Todas las actividades</option>
                             <option value="Pendiente">Pendientes</option>
@@ -239,7 +236,7 @@
                     </div>
 
                     <button id="btn-export-csv" class="btn btn-secondary btn-sm" title="Descargar como archivo CSV para Excel">
-                        <i class="ph-bold ph-file-csv"></i> Exportar a CSV
+                        <span>📥</span> Exportar a CSV
                     </button>
                 </div>
             </div>
@@ -265,12 +262,12 @@
             </div>
 
             <div class="mobile-scroll-hint">
-                <i class="ph-bold ph-arrows-left-right"></i> Desliza hacia los lados para ver más columnas
+                👉 Desliza hacia los lados para ver más columnas
             </div>
 
             <!-- Estado Vacío (Empty State) -->
             <div id="empty-state" class="empty-state hidden">
-                <i class="ph-duotone ph-clipboard-text"></i>
+                <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
                 <h3>No hay actividades registradas aún</h3>
                 <p>Usa el formulario superior para registrar la primera tarea de tu proyecto de ADSO.</p>
             </div>
@@ -285,7 +282,7 @@
 
     <!-- Notificación Flotante (Toast) -->
     <div id="toast" class="toast hidden">
-        <i id="toast-icon" class="ph-bold ph-bell"></i>
+        <span id="toast-icon">🔔</span>
         <span id="toast-message">Mensaje del sistema</span>
     </div>
 

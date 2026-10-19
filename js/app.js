@@ -127,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateTimerToggleButton(isRunning) {
         if (isRunning) {
             btnToggleText.textContent = 'Pausar';
-            btnToggleIcon.className = 'ph-bold ph-pause';
+            btnToggleIcon.textContent = '⏸';
             btnToggle.classList.replace('btn-primary', 'btn-secondary');
         } else {
             btnToggleText.textContent = 'Iniciar Sesión';
-            btnToggleIcon.className = 'ph-bold ph-play';
+            btnToggleIcon.textContent = '▶';
             btnToggle.classList.replace('btn-secondary', 'btn-primary');
         }
     }
@@ -179,13 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td><strong>${escapeHtml(task.title)}</strong></td>
                     <td>
                         <span style="display: flex; align-items: center; gap: 0.35rem;">
-                            <i class="ph-bold ph-user" style="color: var(--primary);"></i>
+                            <span>👤</span>
                             ${escapeHtml(task.responsible)}
                         </span>
                     </td>
                     <td>
                         <span style="display: flex; align-items: center; gap: 0.35rem;">
-                            <i class="ph-bold ph-calendar" style="color: var(--text-secondary);"></i>
+                            <span>📅</span>
                             ${formattedDate}
                         </span>
                     </td>
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>
                         <button class="btn btn-danger-outline btn-delete" data-id="${task.id}" title="Eliminar actividad">
-                            <i class="ph-bold ph-trash"></i>
+                            <span>🗑️</span>
                         </button>
                     </td>
                 `;
@@ -211,9 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderStats();
     }
 
-    function showToast(message, iconClass = 'ph-bell') {
+    function showToast(message, iconEmoji = '🔔') {
         toastMessage.textContent = message;
-        toastIcon.className = `ph-bold ${iconClass}`;
+        toastIcon.textContent = iconEmoji;
         toast.classList.remove('hidden');
 
         if (toastTimeout) clearTimeout(toastTimeout);
