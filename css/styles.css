@@ -219,9 +219,9 @@ body {
 }
 
 .mascot-avatar-wrapper {
-    width: 85px;
-    height: 85px;
-    min-width: 85px;
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,7 +231,25 @@ body {
 }
 
 .mascot-avatar-wrapper:hover {
-    transform: scale(1.08);
+    .mascot-avatar-wrapper img,
+.mascot-avatar-wrapper svg {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    display: block;
+}
+    .mascot-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* muestra el león completo sin deformarlo */
+    display: block;
+    .mascot-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* muestra el león completo sin deformarlo */
+    display: block;
+}
+}
 }
 
 @keyframes mascotFloat {
