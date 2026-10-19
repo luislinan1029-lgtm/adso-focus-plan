@@ -291,46 +291,52 @@ body {
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* Animaciones vivas para iconos de estadísticas */
-.stat-icon.flame i {
-    animation: flamePulse 1.8s infinite ease-in-out;
-    display: inline-block;
+/* Animaciones vivas para iconos y emojis de estadísticas */
+.emoji-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.stat-icon.flame .emoji-icon {
+    animation: flamePulse 1.6s infinite ease-in-out;
+}
+
+.stat-icon.calendar .emoji-icon {
+    animation: calendarWiggle 3.2s infinite ease-in-out;
+}
+
+.stat-icon.student .emoji-icon {
+    animation: studentBounce 2.4s infinite ease-in-out;
+}
+
+.stat-icon.bomb .emoji-icon {
+    animation: bombTick 1.8s infinite ease-in-out;
 }
 
 @keyframes flamePulse {
-    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.4)); }
-    50% { transform: scale(1.18); filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.8)); }
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.5)); }
+    50% { transform: scale(1.22); filter: drop-shadow(0 0 10px rgba(234, 88, 12, 0.9)); }
 }
 
-.stat-icon.trophy i {
-    animation: trophyShine 3s infinite ease-in-out;
-    display: inline-block;
+@keyframes calendarWiggle {
+    0%, 85%, 100% { transform: rotate(0deg); }
+    90% { transform: rotate(-10deg) scale(1.08); }
+    95% { transform: rotate(10deg) scale(1.08); }
 }
 
-@keyframes trophyShine {
-    0%, 80%, 100% { transform: rotate(0deg); }
-    85% { transform: rotate(-8deg); }
-    95% { transform: rotate(8deg); }
-}
-
-.stat-icon.focus i {
-    animation: focusTick 2.2s infinite ease-in-out;
-    display: inline-block;
-}
-
-@keyframes focusTick {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(15deg); }
-}
-
-.stat-icon.tasks i {
-    animation: taskBounce 2.5s infinite ease;
-    display: inline-block;
-}
-
-@keyframes taskBounce {
+@keyframes studentBounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+    50% { transform: translateY(-5px) scale(1.1); }
+}
+
+@keyframes bombTick {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18) rotate(-8deg); filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6)); }
 }
 
 /* Main Container */
@@ -385,19 +391,19 @@ body {
     color: var(--flame);
 }
 
-.stat-icon.focus {
+.stat-icon.calendar, .stat-icon.focus {
     background: var(--primary-light);
     color: var(--primary);
 }
 
-.stat-icon.tasks {
+.stat-icon.student, .stat-icon.tasks {
     background: var(--success-light);
     color: var(--success);
 }
 
-.stat-icon.trophy {
-    background: var(--warning-light);
-    color: var(--warning);
+.stat-icon.bomb, .stat-icon.trophy {
+    background: #fee2e2;
+    color: #ef4444;
 }
 
 .stat-info {

@@ -1,37 +1,37 @@
 /**
  * ============================================================================
- * MÓDULO: MascotController (Mascota Virtual Interactiva: "Byte el Dev")
+ * MÓDULO: MascotController (Mascota Virtual Interactiva: "Oso Dev 🐻")
  * ============================================================================
  * CONCEPTO SENIOR / BUENA PRÁCTICA (ADSO):
  * Gamificación del Software (Gamification):
- * Incorporar elementos lúdicos y de refuerzo positivo aumenta la retención,
- * la motivación del aprendiz y fomenta el hábito de estudio diario.
+ * Mascota amigable en formato vectorial SVG con animaciones fluidas,
+ * estados de ánimo en tiempo real y frases motivacionales de ADSO.
  */
 
 const MASCOT_PHRASES = {
     idle: [
-        "¡Hola Luis! ¿Listo para avanzar en tu proyecto de ADSO hoy? 💻",
+        "¡Hola Luis! Soy Oso Dev, tu compañero de estudio en ADSO 🐻💻",
         "Un buen analista de software empieza con 25 minutos de enfoque.",
         "¡Cada línea de código y cada diagrama cuentan!",
-        "La disciplina vence al talento cuando el talento no es constante. 🔥"
+        "¡Abrazo de oso! La disciplina vence a la pereza siempre 🔥"
     ],
     studying: [
-        "¡Modo hiperenfoque activado! Cero distracciones 🎧",
-        "Programando como un Senior... ¡Tú puedes! 🚀",
-        "Documentando y estructurando con buenas prácticas ☕",
+        "¡Modo oso programador activado! Cero distracciones 🎧",
+        "Estructurando el proyecto como todo un Senior... ¡Tú puedes! 🚀",
+        "Analizando requerimientos y programando con calma ☕",
         "25 minutos de pura concentración. ¡Sigue así!"
     ],
     break: [
-        "¡Tiempo fuera! Levántate, estírate y toma agua 💧",
-        "El descanso es parte vital de la ingeniería de software ☕",
-        "Despeja la mente 5 minutos para volver con toda.",
-        "Un buen café y listos para el siguiente bloque."
+        "¡Tiempo fuera! Estira los brazos, toma agüita y descansa 💧",
+        "El descanso es clave para resolver errores en el código ☕",
+        "5 minutos para despejar la mente y volvemos con toda.",
+        "Un café o un té y listos para el próximo bloque."
     ],
     celebrate: [
-        "¡SESIÓN COMPLETADA! Eres una máquina de productividad 🎉",
-        "¡Racha asegurada! Tu constancia en ADSO es inspiradora 🔥",
-        "¡Un bloque más cerca de titularte como Analista de Software! 🏆",
-        "¡Excelente trabajo! Vamos por el siguiente entregable."
+        "¡SESIÓN COMPLETADA! ¡Eres una máquina de productividad! 🎉",
+        "¡Racha de hoy asegurada! Tu constancia en ADSO es imparable 🔥",
+        "¡Un bloque más cerca de tu titulación como Analista de Software! 🏆",
+        "¡Excelente trabajo en equipo! Vamos por el siguiente entregable."
     ]
 };
 
@@ -57,7 +57,7 @@ class MascotController {
     }
 
     /**
-     * Cambia el estado visual y emocional de la mascota.
+     * Cambia el estado visual y emocional del Oso Dev.
      * @param {'idle' | 'studying' | 'break' | 'celebrate'} mood 
      */
     setMood(mood) {
@@ -68,7 +68,7 @@ class MascotController {
         this.avatarElement.classList.remove('mood-idle', 'mood-studying', 'mood-break', 'mood-celebrate');
         this.avatarElement.classList.add(`mood-${mood}`);
 
-        // SVG vectorial interactivo de "Byte"
+        // SVG vectorial del Oso Dev
         this.avatarElement.innerHTML = this.renderMascotSVG(mood);
         this.speakRandom(mood);
     }
@@ -96,108 +96,128 @@ class MascotController {
     }
 
     /**
-     * Genera el SVG vectorial de la mascota adaptado a su estado de ánimo.
+     * Genera el SVG vectorial del Oso Dev adaptado a su estado de ánimo.
      * @param {string} mood 
-     * @returns {string} Código SVG
+     * @returns {string} Código SVG del Oso
      */
     renderMascotSVG(mood) {
         // Expresiones faciales y accesorios según el estado
         let eyes = `
-            <ellipse cx="65" cy="65" rx="7" ry="9" fill="#1e293b" class="mascot-eye"/>
-            <ellipse cx="95" cy="65" rx="7" ry="9" fill="#1e293b" class="mascot-eye"/>
-            <circle cx="67" cy="63" r="2.5" fill="#ffffff"/>
-            <circle cx="97" cy="63" r="2.5" fill="#ffffff"/>
+            <ellipse cx="62" cy="62" rx="6.5" ry="8" fill="#2b1810" class="mascot-eye"/>
+            <circle cx="64" cy="59" r="2.5" fill="#ffffff"/>
+            <circle cx="61" cy="65" r="1" fill="#ffffff"/>
+            
+            <ellipse cx="98" cy="62" rx="6.5" ry="8" fill="#2b1810" class="mascot-eye"/>
+            <circle cx="100" cy="59" r="2.5" fill="#ffffff"/>
+            <circle cx="97" cy="65" r="1" fill="#ffffff"/>
         `;
-        let mouth = `<path d="M 72 82 Q 80 88 88 82" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none"/>`;
+        let mouth = `
+            <!-- Naricita de Oso -->
+            <path d="M 73 69 Q 80 66 87 69 Q 84 76 80 77 Q 76 76 73 69 Z" fill="#2b1810"/>
+            <circle cx="77" cy="70" r="1.5" fill="#ffffff" opacity="0.8"/>
+            <path d="M 80 77 L 80 81 M 74 81 Q 80 86 86 81" stroke="#2b1810" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        `;
         let accessory = '';
 
         if (mood === 'studying') {
-            // Audífonos de programador y gafas inteligentes
+            // Audífonos gamer violetas y gafas inteligentes de programador
             accessory = `
                 <!-- Diadema de audífonos -->
-                <path d="M 40 60 A 42 42 0 0 1 120 60" fill="none" stroke="#4f46e5" stroke-width="6" stroke-linecap="round"/>
+                <path d="M 38 52 A 46 46 0 0 1 122 52" fill="none" stroke="#4f46e5" stroke-width="6" stroke-linecap="round"/>
                 <!-- Almohadillas -->
-                <rect x="34" y="52" width="10" height="24" rx="5" fill="#312e81"/>
-                <rect x="116" y="52" width="10" height="24" rx="5" fill="#312e81"/>
-                <!-- Gafas de código -->
-                <rect x="54" y="55" width="22" height="18" rx="4" fill="none" stroke="#6366f1" stroke-width="3"/>
-                <rect x="84" y="55" width="22" height="18" rx="4" fill="none" stroke="#6366f1" stroke-width="3"/>
-                <line x1="76" y1="64" x2="84" y2="64" stroke="#6366f1" stroke-width="3"/>
+                <rect x="32" y="46" width="12" height="24" rx="5" fill="#312e81"/>
+                <rect x="116" y="46" width="12" height="24" rx="5" fill="#312e81"/>
+                <!-- Gafas de código cuadradas -->
+                <rect x="52" y="53" width="22" height="18" rx="4" fill="rgba(99, 102, 241, 0.15)" stroke="#6366f1" stroke-width="3"/>
+                <rect x="86" y="53" width="22" height="18" rx="4" fill="rgba(99, 102, 241, 0.15)" stroke="#6366f1" stroke-width="3"/>
+                <line x1="74" y1="62" x2="86" y2="62" stroke="#6366f1" stroke-width="3"/>
             `;
             eyes = `
-                <circle cx="65" cy="64" r="5" fill="#4f46e5"/>
-                <circle cx="95" cy="64" r="5" fill="#4f46e5"/>
+                <circle cx="63" cy="62" r="5" fill="#4f46e5"/>
+                <circle cx="97" cy="62" r="5" fill="#4f46e5"/>
             `;
-            mouth = `<path d="M 74 83 Q 80 86 86 83" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="none"/>`;
         } else if (mood === 'break') {
-            // Ojos felices cerrados y taza de café
+            // Ojos felices curvados y taza de café caliente
             eyes = `
-                <path d="M 58 65 Q 65 58 72 65" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
-                <path d="M 88 65 Q 95 58 102 65" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+                <path d="M 55 63 Q 63 55 71 63" fill="none" stroke="#2b1810" stroke-width="3" stroke-linecap="round"/>
+                <path d="M 89 63 Q 97 55 105 63" fill="none" stroke="#2b1810" stroke-width="3" stroke-linecap="round"/>
             `;
-            mouth = `<path d="M 72 80 Q 80 92 88 80" stroke="#1e293b" stroke-width="3" stroke-linecap="round" fill="#ea580c"/>`;
+            mouth = `
+                <path d="M 74 69 Q 80 66 86 69 Q 83 75 80 76 Q 77 75 74 69 Z" fill="#2b1810"/>
+                <path d="M 72 79 Q 80 89 88 79" stroke="#2b1810" stroke-width="3" stroke-linecap="round" fill="#ea580c"/>
+            `;
             accessory = `
                 <!-- Taza de café con vapor -->
-                <g transform="translate(100, 75) scale(0.7)">
-                    <rect x="0" y="5" width="24" height="26" rx="4" fill="#ef4444"/>
-                    <path d="M 24 10 Q 34 18 24 26" fill="none" stroke="#ef4444" stroke-width="3"/>
-                    <path d="M 6 0 Q 8 -6 6 -10" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" class="steam"/>
-                    <path d="M 14 0 Q 16 -6 14 -10" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" class="steam-2"/>
+                <g transform="translate(108, 70) scale(0.75)">
+                    <rect x="0" y="5" width="26" height="28" rx="5" fill="#ef4444"/>
+                    <path d="M 26 10 Q 36 19 26 27" fill="none" stroke="#ef4444" stroke-width="3.5"/>
+                    <path d="M 7 0 Q 9 -6 7 -10" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" class="steam"/>
+                    <path d="M 16 0 Q 18 -6 16 -10" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" class="steam-2"/>
                 </g>
             `;
         } else if (mood === 'celebrate') {
-            // Gorro de fiesta y estrellas
+            // Gorro de fiesta festivo y estrellas brillantes
             eyes = `
-                <path d="M 58 64 Q 65 55 72 64" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round"/>
-                <path d="M 88 64 Q 95 55 102 64" fill="none" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M 55 62 Q 63 53 71 62" fill="none" stroke="#2b1810" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M 89 62 Q 97 53 105 62" fill="none" stroke="#2b1810" stroke-width="3.5" stroke-linecap="round"/>
             `;
-            mouth = `<path d="M 70 78 Q 80 96 90 78 Z" fill="#e11d48"/>`;
+            mouth = `
+                <path d="M 74 68 Q 80 65 86 68 Q 83 74 80 75 Q 77 74 74 68 Z" fill="#2b1810"/>
+                <path d="M 71 78 Q 80 94 89 78 Z" fill="#e11d48"/>
+            `;
             accessory = `
                 <!-- Gorro de celebración festivo -->
-                <polygon points="80,10 60,45 100,45" fill="#f59e0b"/>
-                <circle cx="80" cy="10" r="5" fill="#ec4899"/>
-                <circle cx="70" cy="30" r="3" fill="#ffffff"/>
-                <circle cx="88" cy="38" r="2.5" fill="#ffffff"/>
-                <!-- Estrellas brillantes -->
-                <text x="35" y="35" font-size="16">✨</text>
-                <text x="110" y="35" font-size="16">🎉</text>
+                <polygon points="80,8 60,40 100,40" fill="#f59e0b"/>
+                <circle cx="80" cy="8" r="5" fill="#ec4899"/>
+                <circle cx="70" cy="26" r="3" fill="#ffffff"/>
+                <circle cx="88" cy="34" r="2.5" fill="#ffffff"/>
+                <!-- Confeti -->
+                <text x="30" y="32" font-size="16">✨</text>
+                <text x="114" y="32" font-size="16">🎉</text>
             `;
         }
 
         return `
         <svg viewBox="0 0 160 140" width="100%" height="100%" class="mascot-svg">
             <defs>
-                <linearGradient id="mascotBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fbbf24"/>
-                    <stop offset="100%" stop-color="#d97706"/>
+                <!-- Gradiente suave de pelaje de Oso pardo/caramelo -->
+                <linearGradient id="bearBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#9a5b43"/>
+                    <stop offset="100%" stop-color="#733b28"/>
                 </linearGradient>
-                <linearGradient id="mascotCheekGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="bearInnerEarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f5cfbe"/>
+                    <stop offset="100%" stop-color="#e5a894"/>
+                </linearGradient>
+                <linearGradient id="bearCheekGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#fca5a5"/>
                     <stop offset="100%" stop-color="#f87171"/>
                 </linearGradient>
             </defs>
 
-            <!-- Orejitas -->
-            <circle cx="48" cy="40" r="14" fill="#b45309"/>
-            <circle cx="48" cy="40" r="8" fill="#fef3c7"/>
-            <circle cx="112" cy="40" r="14" fill="#b45309"/>
-            <circle cx="112" cy="40" r="8" fill="#fef3c7"/>
+            <!-- Orejitas redondas de Oso -->
+            <circle cx="44" cy="38" r="16" fill="#733b28"/>
+            <circle cx="44" cy="38" r="10" fill="url(#bearInnerEarGrad)"/>
+            <circle cx="116" cy="38" r="16" fill="#733b28"/>
+            <circle cx="116" cy="38" r="10" fill="url(#bearInnerEarGrad)"/>
 
-            <!-- Cuerpo / Cabeza redonda del Capibara Dev -->
-            <rect x="40" y="32" width="80" height="78" rx="36" fill="url(#mascotBodyGrad)"/>
+            <!-- Cabeza redonda del Oso Dev -->
+            <rect x="36" y="28" width="88" height="84" rx="42" fill="url(#bearBodyGrad)"/>
 
-            <!-- Hocico tierno -->
-            <ellipse cx="80" cy="76" rx="20" ry="14" fill="#fef3c7"/>
-            <!-- Naricita -->
-            <ellipse cx="80" cy="71" rx="6" ry="4" fill="#78350f"/>
+            <!-- Hocico tierno y redondeado de Oso -->
+            <ellipse cx="80" cy="77" rx="24" ry="17" fill="#fef0e6"/>
 
-            <!-- Ojos y Boca -->
+            <!-- Ojos y Hocico -->
             ${eyes}
             ${mouth}
 
             <!-- Mejillas sonrojadas -->
-            <circle cx="53" cy="74" r="6" fill="url(#mascotCheekGrad)" opacity="0.6"/>
-            <circle cx="107" cy="74" r="6" fill="url(#mascotCheekGrad)" opacity="0.6"/>
+            <circle cx="50" cy="72" r="7" fill="url(#bearCheekGrad)" opacity="0.6"/>
+            <circle cx="110" cy="72" r="7" fill="url(#bearCheekGrad)" opacity="0.6"/>
+
+            <!-- Patitas de oso sutiles abajo -->
+            <circle cx="54" cy="108" r="9" fill="#603020"/>
+            <circle cx="106" cy="108" r="9" fill="#603020"/>
 
             <!-- Accesorios dinámicos -->
             ${accessory}
