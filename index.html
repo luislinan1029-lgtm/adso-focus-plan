@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>DevPlan & Pomodoro | ADSO SENA</title>
+    
+    <!-- Meta etiquetas PWA para Android, Chrome, Edge y Brave -->
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+
+    <!-- Meta etiquetas PWA exclusivas para iPhone / iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ADSO Focus">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+    <!-- Fuente moderna Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Iconos Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Header Principal -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="ph-bold ph-calendar-check"></i>
+                </div>
+                <div>
+                    <h1>ADSO Focus & Plan</h1>
+                    <p class="subtitle">Planificador de Entregables & Pomodoro</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="btn-install-pwa" class="btn-install" title="Instalar en tu dispositivo">
+                    <i class="ph-bold ph-download-simple"></i> Instalar App
+                </button>
+                <div class="user-badge">
+                    <i class="ph-bold ph-student"></i>
+                    <span>ADSO SENA</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- Banner informativo opcional para iPhone/iOS -->
+        <div id="ios-pwa-banner" class="ios-install-banner hidden">
+            <span>📲 <strong>¿Usas iPhone?</strong> Toca el botón <em>Compartir</em> <i class="ph-bold ph-export"></i> y selecciona <em>"Agregar a pantalla de inicio"</em> para usarla como App nativa.</span>
+            <button id="btn-close-ios-banner" title="Cerrar aviso">&times;</button>
+        </div>
+
+        <!-- Panel Superior: Estadísticas y Racha -->
+        <section class="stats-grid">
+            <div class="stat-card streak-card">
+                <div class="stat-icon flame">
+                    <i class="ph-fill ph-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Racha de Estudio</span>
+                    <h3 id="current-streak" class="stat-value">0 días</h3>
+                    <small id="streak-feedback" class="stat-hint">¡Estudia 25m hoy para sumar!</small>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon focus">
+                    <i class="ph-bold ph-timer"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Sesiones de Hoy</span>
+                    <h3 id="today-sessions" class="stat-value">0</h3>
+                    <small class="stat-hint">Bloques de 25m completados</small>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon tasks">
+                    <i class="ph-bold ph-list-checks"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Entregables Listos</span>
+                    <h3 id="completed-tasks-count" class="stat-value">0 / 0</h3>
+                    <small class="stat-hint">Progreso del proyecto</small>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon trophy">
+                    <i class="ph-fill ph-trophy"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Récord de Racha</span>
+                    <h3 id="max-streak" class="stat-value">0 días</h3>
+                    <small class="stat-hint">Tu mayor disciplina</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Dos Columnas: Pomodoro a la izquierda, Formulario/Resumen a la derecha -->
+        <div class="workspace-grid">
+            
+            <!-- MODULO 1: Cronómetro Pomodoro -->
+            <section class="card pomodoro-card">
+                <div class="card-header">
+                    <h2><i class="ph-bold ph-hourglass-high"></i> Cronómetro de Estudio</h2>
+                    <span id="timer-mode-badge" class="badge badge-focus">Modo Estudio (25 min)</span>
+                </div>
+
+                <div class="timer-display-container">
+                    <svg class="progress-ring" viewBox="0 0 240 240">
+                        <circle class="progress-ring-circle-bg" stroke-width="10" cx="120" cy="120" r="105"/>
+                        <circle id="progress-circle" class="progress-ring-circle" stroke-width="10" cx="120" cy="120" r="105"/>
+                    </svg>
+                    <div class="timer-center-text">
+                        <span id="timer-display" class="time">25:00</span>
+                        <span id="timer-subtext" class="subtext">¡Enfoque Total!</span>
+                    </div>
+                </div>
+
+                <div class="timer-controls">
+                    <button id="btn-toggle" class="btn btn-primary btn-large">
+                        <i class="ph-bold ph-play" id="btn-toggle-icon"></i>
+                        <span id="btn-toggle-text">Iniciar Sesión</span>
+                    </button>
+                    <button id="btn-reset" class="btn btn-secondary" title="Reiniciar tiempo">
+                        <i class="ph-bold ph-arrow-counter-clockwise"></i> Reiniciar
+                    </button>
+                    <button id="btn-skip" class="btn btn-secondary" title="Cambiar a descanso o estudio">
+                        <i class="ph-bold ph-skip-forward"></i> Saltar Fase
+                    </button>
+                </div>
+
+                <div class="timer-footer">
+                    <p><i class="ph-bold ph-info"></i> <strong>Regla 25/5:</strong> Completa los 25 minutos para sumar a tu racha diaria y sesiones de hoy.</p>
+                </div>
+            </section>
+
+            <!-- MODULO 2: Registro de Actividades (Formulario) -->
+            <section class="card form-card">
+                <div class="card-header">
+                    <h2><i class="ph-bold ph-plus-circle"></i> Nueva Actividad / Entregable</h2>
+                    <span class="helper-text">Llena los datos para tu equipo</span>
+                </div>
+
+                <form id="activity-form" class="activity-form">
+                    <div class="form-group">
+                        <label for="task-title">Nombre de la Actividad *</label>
+                        <input type="text" id="task-title" placeholder="Ej: Diagrama de Casos de Uso" required autocomplete="off">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="task-responsible">Responsable(s) *</label>
+                            <input type="text" id="task-responsible" placeholder="Ej: Luis & Carlos" required autocomplete="off">
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="task-date">Fecha Límite *</label>
+                            <input type="date" id="task-date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-half">
+                            <label for="task-deliverable">Entregable Esperado *</label>
+                            <input type="text" id="task-deliverable" placeholder="Ej: PDF con casos de uso en Drive" required autocomplete="off">
+                        </div>
+                        <div class="form-group col-half">
+                            <label for="task-status">Estado Inicial</label>
+                            <select id="task-status">
+                                <option value="Pendiente">Pendiente ⏳</option>
+                                <option value="En Progreso">En Progreso 🚀</option>
+                                <option value="Completada">Completada ✅</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success btn-block">
+                            <i class="ph-bold ph-plus"></i> Registrar Actividad
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- MODULO 3: Tabla de Actividades y Filtros -->
+        <section class="card table-card">
+            <div class="table-header-bar">
+                <div>
+                    <h2><i class="ph-bold ph-table"></i> Matriz de Actividades y Entregables</h2>
+                    <p class="subtitle">Seguimiento de compromisos del equipo</p>
+                </div>
+                
+                <div class="table-actions">
+                    <div class="filter-group">
+                        <label for="filter-status"><i class="ph-bold ph-funnel"></i> Filtrar:</label>
+                        <select id="filter-status" class="select-sm">
+                            <option value="ALL">Todas las actividades</option>
+                            <option value="Pendiente">Pendientes</option>
+                            <option value="En Progreso">En Progreso</option>
+                            <option value="Completada">Completadas</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-export-csv" class="btn btn-secondary btn-sm" title="Descargar como archivo CSV para Excel">
+                        <i class="ph-bold ph-file-csv"></i> Exportar a CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor con scroll responsivo -->
+            <div class="table-responsive">
+                <table class="data-table" id="tasks-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Actividad</th>
+                            <th>Responsable</th>
+                            <th>Fecha de Entrega</th>
+                            <th>Entregable</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasks-tbody">
+                        <!-- Filas renderizadas dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mobile-scroll-hint">
+                <i class="ph-bold ph-arrows-left-right"></i> Desliza hacia los lados para ver más columnas
+            </div>
+
+            <!-- Estado Vacío (Empty State) -->
+            <div id="empty-state" class="empty-state hidden">
+                <i class="ph-duotone ph-clipboard-text"></i>
+                <h3>No hay actividades registradas aún</h3>
+                <p>Usa el formulario superior para registrar la primera tarea de tu proyecto de ADSO.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Educativo -->
+    <footer class="app-footer">
+        <p>Construido con buenas prácticas de Ingeniería de Software (PWA, Responsive Design y Web Standards) para aprendices ADSO.</p>
+    </footer>
+
+    <!-- Notificación Flotante (Toast) -->
+    <div id="toast" class="toast hidden">
+        <i id="toast-icon" class="ph-bold ph-bell"></i>
+        <span id="toast-message">Mensaje del sistema</span>
+    </div>
+
+    <!-- Scripts Modulares -->
+    <script src="js/storage.js"></script>
+    <script src="js/streak.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
