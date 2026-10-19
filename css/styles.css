@@ -155,6 +155,32 @@ body {
     gap: 0.35rem;
 }
 
+.btn-notif {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 9999px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-notif:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.btn-notif.active {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: #a7f3d0;
+}
+
 /* Banner de ayuda para iPhone/iOS PWA */
 .ios-install-banner {
     background: #eef2ff;
@@ -176,6 +202,135 @@ body {
     font-size: 1.1rem;
     color: #4338ca;
     cursor: pointer;
+}
+
+/* Widget de Mascota Interactiva "Byte el Dev" */
+.mascot-widget {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+    border: 1px solid #ddd6fe;
+    border-radius: var(--radius-lg);
+    padding: 1.15rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.mascot-avatar-wrapper {
+    width: 85px;
+    height: 85px;
+    min-width: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: mascotFloat 3s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.mascot-avatar-wrapper:hover {
+    transform: scale(1.08);
+}
+
+@keyframes mascotFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.mascot-dialog-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.mascot-header-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.mascot-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #4338ca;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.mascot-tag {
+    font-size: 0.68rem;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+}
+
+.mascot-bubble {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 0.65rem 0.95rem;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    line-height: 1.4;
+}
+
+.pop-anim {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Animaciones vivas para iconos de estadísticas */
+.stat-icon.flame i {
+    animation: flamePulse 1.8s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes flamePulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(234, 88, 12, 0.4)); }
+    50% { transform: scale(1.18); filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.8)); }
+}
+
+.stat-icon.trophy i {
+    animation: trophyShine 3s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes trophyShine {
+    0%, 80%, 100% { transform: rotate(0deg); }
+    85% { transform: rotate(-8deg); }
+    95% { transform: rotate(8deg); }
+}
+
+.stat-icon.focus i {
+    animation: focusTick 2.2s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes focusTick {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.stat-icon.tasks i {
+    animation: taskBounce 2.5s infinite ease;
+    display: inline-block;
+}
+
+@keyframes taskBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
 }
 
 /* Main Container */

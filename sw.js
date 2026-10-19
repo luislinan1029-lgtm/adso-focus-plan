@@ -9,7 +9,7 @@
  * Intercepta peticiones de red y sirve archivos desde la memoria caché local.
  */
 
-const CACHE_NAME = 'adso-focus-v1.1';
+const CACHE_NAME = 'adso-focus-v1.2';
 
 const ASSETS_TO_CACHE = [
     './',
@@ -17,6 +17,8 @@ const ASSETS_TO_CACHE = [
     './css/styles.css',
     './js/storage.js',
     './js/streak.js',
+    './js/notifications.js',
+    './js/mascot.js',
     './js/timer.js',
     './js/tasks.js',
     './js/app.js',

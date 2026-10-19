@@ -14,8 +14,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Inicialización de Gestores
+    // 1. Inicialización de Gestores y Mascota
     const taskManager = new TaskManager();
+    const mascot = new MascotController();
     const CIRCUMFERENCE = 2 * Math.PI * 105; // 2 * pi * r (r=105) ~ 659.73
 
     // 2. Referencias a Elementos del DOM
@@ -53,10 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastMessage = document.getElementById('toast-message');
     const toastIcon = document.getElementById('toast-icon');
 
-    // PWA & Móvil DOM
+    // Notificaciones & PWA DOM
+    const btnToggleNotif = document.getElementById('btn-toggle-notif');
     const btnInstallPwa = document.getElementById('btn-install-pwa');
     const iosBanner = document.getElementById('ios-pwa-banner');
     const btnCloseIosBanner = document.getElementById('btn-close-ios-banner');
+    const mascotAvatar = document.getElementById('mascot-avatar');
 
     let toastTimeout = null;
     let deferredPrompt = null;
@@ -93,9 +96,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 StreakManager.recordCompletedStudySession();
 
                 showToast(`¡Excelente trabajo! Completaste 25 min. Descansa 5 min.`, 'ph-check-circle');
+                
+                // Reacción de la mascota: Celebración festiva
+                mascot.setMood('celebrate');
+                setTimeout(() => {
+                    mascot.setMood('break');
+                }, 5500);
+
+                // Notificación nativa al celular o navegador
+                NotificationService.sendNotification('🎉 ¡Sesión de 25m completada!', {
+                    body: '¡Excelente disciplina! Has sumado a tu racha de hoy. Tómate 5 minutos de descanso.'
+                });
+
                 renderStats();
             } else {
                 showToast(`¡Descanso finalizado! ¿Listo para otro bloque de estudio?`, 'ph-bell-ringing');
+                mascot.setMood('idle');
+
+                // Notificación nativa de fin de descanso
+                NotificationService.sendNotification('⏰ ¡Descanso finalizado!', {
+                    body: '¿Listo para un nuevo bloque de concentración? ¡A programar!'
+                });
             }
             updateTimerToggleButton(false);
         }
@@ -216,12 +237,18 @@ document.addEventListener('DOMContentLoaded', () => {
     btnToggle.addEventListener('click', () => {
         const isNowRunning = timer.toggle();
         updateTimerToggleButton(isNowRunning);
+        if (isNowRunning) {
+            mascot.setMood(timer.currentMode.id === 'STUDY' ? 'studying' : 'break');
+        } else {
+            mascot.setMood('idle');
+        }
     });
 
     // Botón Reiniciar Cronómetro
     btnReset.addEventListener('click', () => {
         timer.reset();
         updateTimerToggleButton(false);
+        mascot.setMood('idle');
         showToast('Temporizador reiniciado');
     });
 
@@ -229,8 +256,43 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSkip.addEventListener('click', () => {
         timer.skipPhase();
         updateTimerToggleButton(false);
+        mascot.setMood(timer.currentMode.id === 'STUDY' ? 'idle' : 'break');
         showToast('Fase de tiempo cambiada');
     });
+
+    // Notificaciones Nativas del Dispositivo
+    function updateNotifButton() {
+        if (!btnToggleNotif) return;
+        if (NotificationService.getPermission() === 'granted') {
+            btnToggleNotif.classList.add('active');
+            btnToggleNotif.innerHTML = '<i class="ph-bold ph-bell-ringing"></i> <span>Notificaciones ON</span>';
+        } else {
+            btnToggleNotif.classList.remove('active');
+            btnToggleNotif.innerHTML = '<i class="ph-bold ph-bell"></i> <span>Notificaciones</span>';
+        }
+    }
+
+    if (btnToggleNotif) {
+        btnToggleNotif.addEventListener('click', async () => {
+            const granted = await NotificationService.requestPermission();
+            updateNotifButton();
+            if (granted) {
+                showToast('¡Notificaciones activadas!', 'ph-bell-ringing');
+                NotificationService.sendNotification('🔔 ¡ADSO Focus & Plan!', {
+                    body: 'Te avisaremos con sonido y vibración al terminar cada bloque de estudio.'
+                });
+            } else {
+                showToast('Notificaciones no permitidas por el navegador', 'ph-warning');
+            }
+        });
+    }
+
+    // Interacción al tocar la mascota Byte
+    if (mascotAvatar) {
+        mascotAvatar.addEventListener('click', () => {
+            mascot.speakRandom(mascot.currentMood);
+        });
+    }
 
     // Envío del Formulario de Actividades
     activityForm.addEventListener('submit', (e) => {
@@ -404,4 +466,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setDefaultDueDate();
     renderTasks();
     renderStats();
+    updateNotifButton();
 });

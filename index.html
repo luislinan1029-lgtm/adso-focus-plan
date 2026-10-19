@@ -44,6 +44,10 @@
                 </div>
             </div>
             <div class="header-actions">
+                <button id="btn-toggle-notif" class="btn-notif" title="Activar notificaciones">
+                    <i class="ph-bold ph-bell" id="notif-icon"></i>
+                    <span id="notif-text">Notificaciones</span>
+                </button>
                 <button id="btn-install-pwa" class="btn-install" title="Instalar en tu dispositivo">
                     <i class="ph-bold ph-download-simple"></i> Instalar App
                 </button>
@@ -62,6 +66,20 @@
             <span>📲 <strong>¿Usas iPhone?</strong> Toca el botón <em>Compartir</em> <i class="ph-bold ph-export"></i> y selecciona <em>"Agregar a pantalla de inicio"</em> para usarla como App nativa.</span>
             <button id="btn-close-ios-banner" title="Cerrar aviso">&times;</button>
         </div>
+
+        <!-- Mascota Virtual Interactiva: Byte el Dev -->
+        <section class="mascot-widget" id="mascot-container">
+            <div class="mascot-avatar-wrapper" id="mascot-avatar">
+                <!-- SVG de la mascota inyectado por mascot.js -->
+            </div>
+            <div class="mascot-dialog-box">
+                <div class="mascot-header-info">
+                    <span class="mascot-name"><i class="ph-bold ph-sparkle"></i> Byte</span>
+                    <span class="mascot-tag">Compañero ADSO</span>
+                </div>
+                <p class="mascot-bubble" id="mascot-speech">¡Hola Luis! ¿Listo para avanzar en tu proyecto de ADSO hoy? 💻</p>
+            </div>
+        </section>
 
         <!-- Panel Superior: Estadísticas y Racha -->
         <section class="stats-grid">
@@ -270,6 +288,8 @@
     <!-- Scripts Modulares -->
     <script src="js/storage.js"></script>
     <script src="js/streak.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/mascot.js"></script>
     <script src="js/timer.js"></script>
     <script src="js/tasks.js"></script>
     <script src="js/app.js"></script>
